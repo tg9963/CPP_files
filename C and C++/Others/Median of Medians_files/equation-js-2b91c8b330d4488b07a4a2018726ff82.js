@@ -1,0 +1,2 @@
+$('textarea.equation').textcomplete([{match:/\B:(\w*(\-?\s?\w*)?)$/,search:getEquations,index:1,replace:function(equation){return equation.equation+' ';},template:getTemplate,}]);function getEquations(term,callback){$.getJSON('/equation/search',{q:term}).done(function(data){callback(data);Utils.restartMathJax($('.textcomplete-wrapper').get());}).fail(function(){callback([]);});}
+function getTemplate(value){return'<b> '+value.name+'</b><br><small>'+value.equation+'</small>';}

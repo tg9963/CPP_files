@@ -1,0 +1,271 @@
+Bill Thies
+thies@mit.edu
+Office hours: Sat 1-3pm, here
+http://cag.lcs.mit.edu/~thies/6.046
+
+Announcements:
+- PS 6 due Wednesday
+- PS 7 out, no problems
+- Week from Wed:  take home test (due Mon 11/22)
+
+Today:
+- Depth-first search
+
+---------------------------------------------------------
+
+DEPTH-FIRST SEARCH
+
+<< give intuition: go as far down one path until you hit node you've
+already visited; backtrack until there is unexplored node. >>
+
+<< algorithm is useful not just for searching, but because it
+maintains extra information about graph, in terms of starting and
+finishing times.  will see applications >>
+
+DFS(G)
+  for each vertex u in V[G]
+    do color[u] <- WHITE
+       pi[u] <- NIL
+  time <- 0
+  for each vertex u \in V[G]
+    do if color[u] = WHITE
+       then DFS-VISIT(u)
+
+DFS-VISIT(u)
+  color[u] <- GRAY
+  time <- time + 1
+  d[u] <- time
+  for each v \in Adj[u]
+    do if color[v] = WHITE
+      then pi[v] <- u
+           DFS-VISIT(v)
+ color[u] <- BLACK
+ f[u] <- time + 1
+ time <- time + 1
+
+---------------------------------------------------------
+
+[ work example of DFS.  See CLRS p.542 for similar picture. ]
+
+Runtime?  << annotate loop in code to run Theta(E) times >>
+ - Theta (V + E)
+
+---------------------------------------------------------
+
+Depth-First Forest:  tree with multiple roots
+
+[ draw example.  See CLRS p. 544, Figure 22.5(a) for similar picture. ]
+
+<< note: this is depth-first forest, following the pi values >>
+<< note: includes all vertices in graph >>
+
+---------------------------------------------------------
+
+Edge Classification
+
+<< add edges to forest, labeling as you go >>
+
+1. Tree edge:  encounter new (white) vertex
+   - gray to white
+2. Back edge: from descendent to ancestor
+   - gray to gray
+3. Forward edge:  nontree edge from ancestor to descendent
+   - gray to black
+4. cross edge:  remainder - betweeen trees or sub-trees
+   - gray to black
+
+---------------------------------------------------------
+
+[ draw timing version.  See CLRS p. 544, Figure 22.5(b) for similar picture. ]
+
+Parenthesis theorem.  Only relationship between intervals for pair of
+vertices is as follows:
+ 
+     0               N
+time ---------------->
+
+   --------------        (one completely overlaps the other)
+       -----
+
+   ------  -----         (intervals are disjoint)
+
+Why not:
+
+a -------                (only partial overlap)
+b    --------
+
+ --> b must be descendant of a.  Must finish b before finishing a.
+
+---------------------------------------------------------
+
+Using timing to classify edge (a, b)
+
+1. b: ------------------    BACK EDGE
+   a:     --------
+
+   that is, d[b] < d[a] < f[a] < f[b]
+
+2. a: ------------------    TREE or FORWARD EDGE
+   b:     --------
+
+   that is, d[a] < d[b] < f[b] < f[a]
+
+3. b: -----   a: ------     CROSS EDGE
+
+   that is, d[b] < f[b] < d[a] < f[a]
+
+4. a: -----   b: ------     impossible edge
+
+---------------------------------------------------------
+
+Lemma.  If G is undirected, a DFS produces only tree and back edges.
+Proof. << by picture>>
+
+Try to make a forward edge, drawn from 1->3
+
+    1----               	  
+     \T  \F?  --> No, this edge is actually a back edge from 3->1
+      2   |	        	  
+       \T |	        
+        3--	        
+
+Try to make a cross edge from 
+
+     2   
+     |T  
+     3   		        
+   T/ \T 
+   4---5
+     C?   --> No, this edge is actually tree edge from 4->5  
+              (and 5->3 is back edge)
+
+Q: Test in O(V) time whether or not an undirected graph has a cycle?
+A: Run DFS, output true on first back edge.
+   - if no back edges, E = O(V)
+   - if back edge, quit when found it
+
+<< does this algorithm work on directed graph? yes...>>
+
+---------------------------------------------------------
+We did not cover this in recitation.
+|
+|  Theorem. A digraph has cycle iff DFS yields a back edge
+|  Proof.
+|    --> if (a,b) backedge, then v is ancestor of u in depth-first forest
+|    --> if cycle, let a = first vertex discovered.  let be = predecessor on cycle.
+|
+|                  \./
+|             b --> a --> --> 
+|             |      ...    |
+|
+|     << must visit everything reachable from b before returning from
+|     DFS-visit.  Thus, (a,b) is a backedge >>
+|
+|  Runtime?  Theta(V + E)
+|    - must visit all forward and cross edges
+|
+---------------------------------------------------------
+
+Topological Sort
+
+- Linear ordering of V s.t. (a, b) in E implies a precedes b in
+  ordering
+
+<< layout vertices on horiz. line s.t. all edges are from left to right >>
+
+[ draw example from book, p. 550 ]
+
+undershorts \              socks   watch
+   |         --------\       |
+  \|/                 ---\  \./
+ pants ------------------> shoes
+   |
+  \./
+  belt  <---- shirt
+   |          \./
+   |          tie
+   |          \./
+   |-------> jacket
+  
+---------------------------------------------------------
+
+TOPO-SORT(G)
+1. run DFS(G)
+2. output vertices in DECREASING order of finishing times f[v]
+
+[ work through example, starting at shirt ]
+[ draw linear ordering ]
+
+Correctness:  (a, b) in E ==> f[a] > f[b]
+  - When (a, b) is explored, a is gray
+     - b gray:   back edge (not in dag)
+     - b white:  b becomes descendent of a 
+                  ==> f[a] > f[b]
+     - b black: b already finished, but a not finished
+                  ==> f[a] > f[b]
+
+Runtime?  O(V+E)
+  - Can output vertices in reverse order as you are running DFS
+
+---------------------------------------------------------
+We only talked through this in recitation (didn't put on board)
+|
+| DAG Shortest Paths [CLRS p. 592]
+|
+| << will help on your problem set >>
+|
+| DAG-Shortest-Paths (G, w, s)
+| 1. run TOPO-SORT(G)
+| 2. INITIALIZE-SINGLE-SOURCE (G, s)
+| 3. for each vertex a, in topo. sorted order
+|    do for each vertex b \in Adj[a]
+|      do RELAX(a, b, w)
+|
+| Only paths go from left to right, so never have to relax from right.
+|
+| Theta(V+E) time (vs. Dijkstra's algorithm, Theta(E + V lg V)
+|
+---------------------------------------------------------
+We did not cover this in recitation
+| 
+| DFS vs. BFS
+| 
+| Recall BFS:
+| Q <- V
+| while Q is not empty
+|   do a <- DEQUEUE (Q)
+|     for each b in Adj[a]
+|       do if b not in VISITED
+|         then VISITED <- VISITED + {b}
+|              ENQUEUE(Q, b)
+| 
+| How to change this to DFS?
+|  - replace Q with stack (draw push, pop)
+| 
+| 			DFS			      BFS
+| memory usage		small (# edges in path)	      large (# edges in queue)
+| edge classification	tree, back, forward, cross    tree, cross
+| path found		arbitrary		      shortest
+| misc			start/finish time apps	      (only starts from one vertex)
+| 			 --> e.g., connectivity (SCC)
+| 			<< physical -- for exploring maze >>
+| 
+---------------------------------------------------------
+| 
+| True / False
+| 
+| T/F: if there is path from u to v in directed graph G, and if d[u] <
+| d[v] in DFS, then v is descendant of u in depth-first forest produced
+| 
+|    false.  could be vertex z on path from u to v with d[z] < d[u].
+| 
+| T/F: if there is path from u to v in digraph G, then any DFS must
+| result in d[v] <= f[u]
+| 
+|    false.  cross edges.
+| 
+| T/F: a vertex u of a directed graph can end up in a depth-first tree
+| containin only u, even though u has both incoming and outgoing edges
+| in G.
+| 
+|    true (self loop)

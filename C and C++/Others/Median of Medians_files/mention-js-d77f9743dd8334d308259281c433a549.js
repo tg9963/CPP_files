@@ -1,0 +1,2 @@
+$('textarea.mention').textcomplete([{match:/\B@(\w*)$/,search:getMentionedUsers,index:1,replace:function(mention){return'@'+mention.username+'('+mention.name+')'+' ';},template:getTemplate,}]);function getMentionedUsers(term,callback){$.getJSON('/user/search',{q:term}).done(function(data){callback(data);}).fail(function(){callback([]);});}
+function getTemplate(value){var userimg='<img class="media-object pull-left icon-space" src="'+Utils.gravatar(value.gcode,38)+'" width="38" height="38">';return'<b>'+userimg+' '+value.name+'</b><br><small>'+value.username+'</small>';}

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://functionspace.org/articles/19 -->
+<html class="wf-adelle-n7-inactive wf-proximanova-n4-inactive wf-proximanova-n7-inactive wf-skolar-n4-inactive wf-inactive"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    
+    <meta name="csrf-token" content="WLpjHCVMw6k4JRGlKnSM6ATDLD3gRIgIfCn3ZApP">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Median of Medians</title>
+
+    <link media="all" type="text/css" rel="stylesheet" href="./Median of Medians_files/bootstrap.css">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link media="all" type="text/css" rel="stylesheet" href="./Median of Medians_files/flat-ui.css">
+    <link media="all" type="text/css" rel="stylesheet" href="./Median of Medians_files/intro-css-8609aa27a38ce540c0ec027f54f134c3.css">
+    <link media="all" type="text/css" rel="stylesheet" href="./Median of Medians_files/jquery-growl-css-a5d2978d6e453d79c4a15ed78501f6e6.css">
+    <link media="all" type="text/css" rel="stylesheet" href="./Median of Medians_files/main-css-c911b2a874382ab67a7ec4f63515bf09.css">
+        <link media="all" type="text/css" rel="stylesheet" href="./Median of Medians_files/share.css">
+
+  <style type="text/css">.tk-skolar,.topic-title{font-family:"skolar",serif;}.tk-proxima-nova,p{font-family:"proxima-nova",sans-serif;}.app-title,.heading,.signupmessage,.tk-adelle,h1,h3{font-family:"adelle",serif;}</style><link rel="stylesheet" href="http://use.typekit.net/c/d80abb/adelle:n7,proxima-nova:n4:n7,skolar:n4.XKF:N:2,b5w:N:2,bBh:N:2,QyQ:N:2/d?3bb2a6e53c9684ffdc9a9bf01d5b2a62a6cf22dd8069c1189991f70cf1eb2de5922473a5df250bfedbb06373fbd840233215c56d13e96863b5287f043b2f99bf699d36e89a813791d89e8df67987ae23c3dfef8e9d704b5e9fd4663751e9229846ed328ea6cec73534c6b0bb90dd12a53573c23fcb0dbada445a2e2c307f1ed8d3f05876218a3481bd79b7d12c8c9bcd9550596e0f8ba555ffde306f0ccdf6d9e38e36eee6b640"><style type="text/css"></style><script type="text/javascript" src="./Median of Medians_files/tracker.js"></script><script async="" src="./Median of Medians_files/analytics.js"></script><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style></head>
+  <body><div id="MathJax_Message" style="display: none;"></div>
+                    <div id="pageAlert" class="col-lg-offset-1 col-lg-10"></div>
+
+    <!-- Code for Navbar begins here -->
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand tk-adelle" href="http://functionspace.org/">Function Space<span class="beta">β</span></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+
+            <!-- Navigation for mobile begins here -->
+            <ul class="nav nav-pills hidden-lg hidden-md hidden-sm">
+                            <li class="active"><a href="http://functionspace.org/explore">Feed</a></li>
+                                          <li><a href="http://functionspace.org/discussion">Discussions</a></li>
+              <li><a href="http://functionspace.org/news">News</a></li>
+              <li><a href="http://functionspace.org/learn">Articles</a></li>
+              <li><a href="http://functionspace.org/challenges">Challenges</a></li>
+              <li><a href="http://compute.functionspace.org/">Compute</a></li>
+              <li><a href="http://functionspace.org/stats">Stats</a></li>
+                            <li><a href="http://functionspace.org/quartertopic/288">Quarter Topic</a></li>
+                          </ul>
+            <!-- Navigation for mobile ends here -->
+
+            <li class="dropdown hidden-lg hidden-md hidden-xs visible-sm">
+              <a href="http://functionspace.org/articles/19#" data-toggle="dropdown">Menu</a>
+              <span class="dropdown-arrow"></span>
+              <ul class="dropdown-menu">
+                                <li class="active"><a href="http://functionspace.org/explore">Feed</a></li>
+                                                <li><a href="http://functionspace.org/discussion">Discussions</a></li>
+                <li><a href="http://functionspace.org/news">News</a></li>
+                <li><a href="http://functionspace.org/learn">Articles</a></li>
+                <li><a href="http://functionspace.org/challenges">Challenges</a></li>
+                <li><a href="http://compute.functionspace.org/">Compute</a></li>
+                <li><a href="http://functionspace.org/stats">Stats</a></li>
+                                <li><a href="http://functionspace.org/quartertopic/288">Quarter Topic</a></li>
+                              </ul>
+            </li>
+
+            <!-- Feature Notification Center Begins here -->
+            <li class="feature-li">
+                          </li>
+            <!-- Feature Notification Center Ends here -->
+
+                        <li><a href="http://functionspace.org/help">Help</a></li>
+            <li><a href="http://functionspace.org/login">Log In</a></li>
+            <li><a href="http://functionspace.org/signup">Sign Up</a></li>
+                      </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group" id="fs-search-container">
+              <input type="text" class="form-control typeahead" id="fs-search" placeholder="Search">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Code for Navbar ends here -->
+
+        <!-- Code for Navigation menu begins here -->
+    <div class="iconbar hidden-xs hidden-sm" data-step="1" data-intro="Navigate on Function Space through this icon bar" data-position="right">
+      <ul>
+        <li class="fs-header">
+          <a href="http://functionspace.org/"><span class="fx-navbar">f(x)</span><span class="iconbar-title tk-adelle">Function Space</span></a>
+        </li>
+        <li class="">
+                    <a href="http://functionspace.org/explore" class="fa fa-list">
+            <span class="iconbar-title tk-skolar">Feed<span>
+          </span></span></a>
+                  </li>
+                <li class="">
+          <a href="http://functionspace.org/discussion" class="fa fa-group">
+            <span class="iconbar-title iconbar-title-lg tk-skolar">Discussions</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="http://functionspace.org/news" class="fa fa-globe">
+            <span class="iconbar-title tk-skolar">News</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="http://functionspace.org/learn" class="fa fa-book">
+            <span class="iconbar-title tk-skolar">Learn</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="http://functionspace.org/challenges" class="fa fa-trophy">
+            <span class="iconbar-title tk-skolar">Challenges</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://compute.functionspace.org/" class="fa fa-terminal">
+            <span class="iconbar-title tk-skolar">Compute</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="http://functionspace.org/stats" class="fa fa-bar-chart-o">
+            <span class="iconbar-title tk-skolar">Stats</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Code for Navigation menu ends here -->
+    
+
+    <!-- Code for body begins here -->
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-half col-md-8 feed-pull-top-left">
+      <ul class="list-inline">
+        <li>
+          <a class="btn btn-xs btn-info btn-embossed" href="http://functionspace.org/learn">
+            <span class="fui-list"></span>
+            All articles          </a>
+        </li>
+                <li class="share-button pull-right">
+          <div class="social-likes social-likes_single" data-single-title="Share">
+            <div class="facebook" title="Share link on Facebook">Facebook</div>
+            <div class="twitter" title="Share link on Twitter">Twitter</div>
+            <div class="plusone" title="Share link on Google+">Google+</div>
+          </div>
+        </li>
+        <li class="pull-right">
+          <a class="btn btn-xs btn-primary btn-embossed" href="http://functionspace.org/articles/zen/19">
+            <span class="fa fa-leaf icon-space"></span>
+            Distraction Free          </a>
+        </li>
+      </ul>
+      <hr class="styled-hr">
+      <div class="media article closable" id="showArticleMedia">
+        <div class="media-body">
+                    <h7 class="tk-skolar article-title feed-title">Median of Medians</h7>
+          <div class="btn-group pull-right">
+            <span class="btn btn-primary btn-xs btn-insightful-count" data-article="19">10</span>
+                        <button class="btn btn-inverse disabled btn-xs btn-insightful" data-article="19">Marked as Insightful</button>
+                      </div>
+          <p>
+            </p><ul class="info-nav">
+                            <li><a href="http://functionspace.org/tags/ComputerScience"><span class="btn btn-xs btn-inverse btn-embossed">ComputerScience</span></a></li>
+                            <li><a href="http://functionspace.org/tags/DataStructures-Algorithms"><span class="btn btn-xs btn-inverse btn-embossed">DataStructures-Algorithms</span></a></li>
+                            <li><a href="http://functionspace.org/tags/Computational-Complexity"><span class="btn btn-xs btn-inverse btn-embossed">Computational-Complexity</span></a></li>
+                            <li data-user="2767">
+                <span class="date"> Posted <abbr class="timeago article-created-at" title="2013-05-27 17:54:45"></abbr> by <a href="http://functionspace.org/profile/2767" class="user-name">Mohit Dhingra</a></span>
+              </li>
+            </ul>
+          <p></p>
+          <div class="feed-text">
+          <p><strong>This article has been co-authored by <a href="http://functionspace.org/profile/2764">Aakriti</a></strong></p>
+
+<p>Suppose you are a teacher of a class of 1000 students. There is a scholarship offer for the top 50 students of your class. Now, you as a teacher, want to find those top 50 students. How would you go about doing this?</p>
+
+<p>A) There is an easy approach you could follow. You just sort the students according to their ranks and pick up the top 50 from this sorted list. But you will realize that you have wasted a lot of effort in sorting the other 950 students of your class. The best known sorting algorithm takes $O(n*log_2(n))$, where $n$ is the number of students in the class.</p>
+
+<p>B) Another approach which is slightly clever is as follows. Pick up the student with highest rank from the list by going through all of them. Then, remove him from the list and find out the highest rank from the remaining students, which turns out to be the student with second highest rank. Repeat the process 50 times and you have the top 50 students with you. Upon trying to analyze the time complexity of this approach, it would take $O(k*n)$ time, where $k$ is 50 in this case.</p>
+
+<p>So, is this really better than the first? Well, it depends! You will notice that the comparison here is between $k$ and $log_2(n)$. If you had to find just 5 students, then clearly, second strategy wins. But if you were trying to find let's say 500 students out of 1000, then you should have gone with the first strategy.</p>
+
+<p>Now, can you do better?</p>
+
+<p>Well, the answer is Yes!</p>
+
+<p>C) There are two observations to make. One, you just need to know top 50 rankers, but you don't need them in order. Both of the above methods give you the top 50 students in order. Seems like you are doing extra work, so there might be some other approach which reduces your effort. Second observation is that your job would be done if you just get the student who is ranked $50^{th}$ in the class. Now in another single pass ($O(n)$), you can just compare the marks of the rest of the students with the selected student. All of those students who rank higher than this selected student get the scholarship. The problem now reduces to: Is there any efficient algorithm which can find the student with $k^{th}$ rank? Or in other words, how can we find $k^{th}$ largest number from an unsorted list efficiently? Next, we look at one such algorithm which does the job in $O(n)$, thereby making this complete method $O(n)$ and better than the previous two.</p>
+
+<p><strong>Selection Algorithm</strong></p>
+
+<p>The current best known algorithm to find out the $k^{th}$ largest number from a list of n numbers uses the concept of "Median of Medians". So what is median of medians? Let's assume we have a magic algorithm Magic() which finds out the median in linear time ($O(n)$). Now, using this algorithm, we can easily find $k^{th}$ largest number in linear time as explained below : </p>
+
+<p>/* Example : 5,3,7,2,1 is unsorted list and k=2 will return the number 5 ($2^{nd}$ largest) */</p>
+
+<p>// beg indicates the starting index and end indicates the last index of the unsorted list.</p>
+
+<pre>Find_kth_largest( int k, int beg, int end ) 
+
+{
+
+    i = Magic(); // 'i' is the index of the median element 
+    /* Here in a single pass, shift all the elements smaller than A[i] to the left and greater than A[i] to the right. So A[i] occupies its correct place in the list. */
+
+    if ( i == k )
+        Return the element a[i];
+    else if ( i &lt; k )
+    Return Find_kth_largest ( k, i+1 , end);
+    else 
+    Return Find_kth_largest ( k-(n-i), beg, i );
+
+}
+</pre>
+
+<p>This is an example of divide and conquer paradigm. If you are familiar with binary search algorithm, it works on similar lines. First, it finds the median element of the current list. Then it compares it's index with the value k. If k is equal, we are done. If k is smaller, recursive call is made into the left sub-array. Else, recursive call is made into the right sub-array.</p>
+
+<p><strong>Complexity Analysis of the above algorithm</strong> </p>
+
+<p>If there are $n$ elements, let's say the complexity of finding the median is $T(n)$. This gives us the following recurrence relation </p>
+
+<p>$T(n) = T(n/2) + n + T(Magic())$</p>
+
+<p>Since, after every iteration, the search space reduces to half(either left or right sub-array), the term $T(n/2)$ appears in the right hand side. Here $n$ is for a single pass required for rearrangement of elements to bring the median to its correct position and the other term, $T(magic())$ is for the call to $Magic()$ algorithm. Given, $T(Magic())$ is $O(n)$, therefore, </p>
+
+<p>$T(n) = T(n/2) + n $</p>
+
+<p>The solution of the above recurrence relation is $2n$, which is nothing but $O(n)$.</p>
+
+<p>After analyzing all this, you are one happy and proud teacher. You seem to have solved the problem in $O(n)$ time! Only thing that's stopping you is - figuring out 'Magic()' algorithm.</p>
+
+<p>Mathematics is on your side today, and in this particular case it is not required that you have the exact median to get this linear time complexity. Here's the proof for that:</p>
+
+<p>Say, you have an approximate median and you are certain that it is greater than 3/10 of all elements and lesser than 3/10 of all elements. Precisely, say this approx. median's correct position in the sorted list is 'x'. You have:</p>
+
+<p>$3n/10 &lt;= x &lt;= 7n/10$</p>
+
+<p>So the recurrence, in the worst case becomes:
+$T(n) = T(7n/10) + n$</p>
+
+<p>This is because, in the worst case, the search space is reduced to $7n/10$ after each iteration. The solution of the above recurrence relation is also $O(n)$.</p>
+
+<p>Turns out you don't really need pure magic. An approximate trick would do! And now we justify the title of this post: This approximate trick is what is called 'median of medians'.</p>
+
+<p><strong>Median of Medians</strong></p>
+
+<p>It starts with dividing the elements into groups of 5. The mystery behind the number 5 will be explained in a short while, no magic here! </p>
+
+<p>So, we get $n/5$ groups of size 5 each, except maybe the last group if $n$ is not a multiple of 5. Let's ignore that for the purpose of this post. We can always add dummy elements to make the total a multiple of 5.</p>
+
+<p>Next, we sort these groups of 5 individually. From our knowledge of sorting we know that it will take  $5\log _{ 2 }{ \left( 5 \right)  } $  time per group, multiplying this with total number of groups give us the total time:  $n*log_2(5)$ which is $O(n)$.</p>
+
+<p>Further, we take out the middle element from each of these groups: which gives us $n/5$ elements. The median of these $n/5$ elements has a very nice property. It is greater than half of the medians, thus $n/10$ elements. These $n/10$ medians are also greater than 2 elements each from their respective groups. So our median of medians is greater than at least $3n/10$ elements. Similar argument justifies that our median of medians is lesser than at least $3n/10$ elements. 
+This proves that we have an approximate median element in our hands. </p>
+
+<p>To find the median of the n/5 medians, we apply Find_kth_largest() again with k as $n/2$.</p>
+
+<p><img src="./Median of Medians_files/gaOxb1A.jpg" alt="Median of Medians" title="Logo Title Text 1"></p>
+
+<p>To summarize, we list the complete magic() algorithm:</p>
+
+<pre>Magic()
+{
+
+    /* Step 1: Divide in groups of 5 */
+
+    /* Step 2: Sort these small groups */
+
+    /* Step 3: Extract the median elements of each group */
+
+    /* Step 4: Calculate median of these medians by recursive call to Find\_kth\_largest() where k is n/2 */
+
+}
+
+</pre>
+
+<p>Now with Magic() function defined, the earlier recurrence for Find_kth_largest() becomes:</p>
+
+<p>$T(n) = T(n/5) + T(7n/10) + n$</p>
+
+<p>The solution is O(n)!!!</p>
+
+<p>The magic number 5 can be replaced by any number greater than 5, and the resultant complexity would be the same. But if we go below 5, say 3, you can plug it in the recurrence and let us know the complexity!</p>
+
+<p>Cheers!</p>
+          </div>
+                   <hr>
+         <div class="feed-text">
+           <i>The author of this article is <a href="http://functionspace.org/profile/2767" class="user-name">Mohit Dhingra</a>. Here is <a href="http://functionspace.org/profile/2767" class="user-name">Mohit Dhingra's</a> bio:</i>
+           <blockquote><p>I am Masters by Research student at Indian Institute of Science, Bangalore. I am basically a computer systems guy and have also worked on applications of  theoretical computer science. I have been teaching OS, Algorithms among other subjects to undergrad students on weekends.</p>
+</blockquote>
+         </div>
+                 </div>
+      </div>
+      <hr>
+      <ul class="media-list closable" id="opinionListId">
+              <li class="media opinion">
+          <a class="pull-left" data-user="3334" href="http://functionspace.org/profile/3334">
+            <img class="media-object" src="./Median of Medians_files/092e1b102fb9a0aff087b8fbb5432c14" width="48" height="48">
+            <span class="kindex"><i class="fa fa-bolt icon-space"></i><span class="user-fsi">7.75</span></span>
+          </a>
+          <div class="media-body">
+            <h7 class="tk-skolar user" data-user="3334">
+              <a href="http://functionspace.org/profile/3334">
+                <span class="user-name">Rahul</span>
+              </a>
+              <span class="date"> Posted <abbr class="timeago opinion-created-at" title="2013-08-08 13:46:43"></abbr></span>
+            </h7>
+            <div class="feed-text">
+            <p>Nice!</p>
+            </div>
+                        <hr>
+          </div>
+        </li>
+              </ul>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <div class="media user" data-user="2767">
+      <a class="pull-left feed-image" href="http://functionspace.org/profile/2767">
+          <img src="./Median of Medians_files/1cb6ba5eab20a83ee20abfaa7e2c7eaf" width="48" height="48">
+      </a>
+      <h7 class="tk-skolar">
+          <a href="http://functionspace.org/profile/2767">
+          <span class="user-name">Mohit Dhingra</span>
+          </a>
+      </h7>
+      <div class="small text-muted">
+        <i class="fa fa-bolt icon-space"></i><span class="user-fsi">66.29<span>
+      </span></span></div>
+      <div>
+                <a class="btn btn-info btn-xs" href="http://functionspace.org/login">Follow</a>
+              </div>
+      <hr>
+            <small style="color:#7f8c8d;"><i class="fa fa-group icon-space"></i>Recommended Discussions</small><br>
+      <ul class="feed-text">
+                <li><a href="http://functionspace.org/topic/1350" class="feed-title">Sorting of an array in a particular way</a></li>
+                <li><a href="http://functionspace.org/topic/1862" class="feed-title">How to check if two binary trees are identical?</a></li>
+                <li><a href="http://functionspace.org/topic/1282" class="feed-title">Algorithms to know</a></li>
+                <li><a href="http://functionspace.org/topic/1479" class="feed-title">Modifying Strings</a></li>
+                <li><a href="http://functionspace.org/topic/961" class="feed-title">Can parity games be solved in polynomial time?</a></li>
+                <li><a href="http://functionspace.org/topic/145" class="feed-title">Difference between Concurrency and Parallelism?</a></li>
+              </ul>
+                  <small style="color:#7f8c8d;"><i class="fa fa-book icon-space"></i>Recommended Articles</small><br>
+      <ul class="feed-text">
+                <li><a href="http://functionspace.org/articles/50" class="feed-title">Introduction to Amortized Analysis</a></li>
+                <li><a href="http://functionspace.org/articles/93" class="feed-title">Ecplising &amp; replacing the two most fundamental religions of science: Turing world of computation and Darwin's world of evolution</a></li>
+                <li><a href="http://functionspace.org/articles/25" class="feed-title">A courier guy stuck with NP Problem!</a></li>
+              </ul>
+            </div>
+    </div>
+  </div>
+
+    <div class="row">
+        <div class="col-lg-7 col-lg-offset-half col-md-7 feed-pull-top-left">
+      <div class="alert alert-primary">
+        <a class="btn btn-success btn-sm" href="http://functionspace.org/signup"><b>Signup for free</b></a>
+        <b> to share your opinion. </b> Already have an account? <a href="http://functionspace.org/login">Sign in to post opinion</a>
+      </div>
+    </div>
+      </div>
+  </div>
+    <!-- Code for body ends here -->
+
+    <!-- Notification modal -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h6 class="modal-title">Notifications</h6>
+          </div>
+          <div class="modal-body">
+            <div class="list-group dns-list">
+            </div>
+            <div class="list-group notification-list">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-xs btn-inverse pull-left" href="http://functionspace.org/notification">Show all</a>
+            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-xs btn-primary notification-clearall" data-dismiss="modal" attr-url="http://functionspace.org/notification">Clear all</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="confirmBoxModal" role="dialog">
+    </div>
+
+    <div class="tagmodal modal fade" id="tagModal" role="dialog">
+      <div class="modal-dialog">
+      </div>
+    </div>
+
+    <!-- Feature modal starts -->
+    <div class="modal fade" id="featureModal" tabindex="-1" role="dialog" aria-labelledby="featureModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h6 class="modal-title">Features</h6>
+          </div>
+          <div class="modal-body">
+            <div class="list-group feature-list">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-xs btn-inverse pull-left" href="http://functionspace.org/feature">Show all</a>
+            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-xs btn-primary feature-allseen" data-dismiss="modal" attr-url="http://functionspace.org/feature/allseen">Clear all</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Feature modal ends -->
+
+    <script type="text/template" id="tagmodalTmpl">
+      <div class="row">
+        <div>
+          <div class="todo">
+            <div class="todo-search">
+              <input class="todo-search-field" type="search" value="" placeholder="Search" />
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <ul>
+            <% _.each(tags, function(tag){ %>
+              <li data-tagid="<%=tag.id%>" data-tagtitle="<%= tag.title %>" data-titlelower="<%=tag.title.toLowerCase() %>" class="tag-desc <%= exists(tag.title) ? 'todo-done' : '' %>">
+                <div class="todo-content">
+                  <h5 class="todo-name">
+                    <%= tag.title %>
+                  </h5>
+                  <%= tag.description || 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' %>
+                </div>
+              </li>
+            <% }); %>
+            </ul>
+          </div>
+        </div> <!-- /todo list -->
+    </script>
+    <script type="text/template" id="pageAlertTmpl">
+      <div class="alert alert-dismissable alert-<%=type%> alert-messages">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <p><%= message %><p>
+    </script>
+    <script type="text/template" id="userInfoTmpl">
+    <div class="row user-info-row">
+      <div class="media">
+        <a class="pull-left" href="/profile/<%= user.id %>">
+          <img src="<%= Utils.gravatar(user.gcode, 48) %>" height=48 width=48></img>
+        </a>
+        <div class="media-body">
+          <h7 class="tk-skolar"><%= user.name %></h7>
+          <div class="small">
+            <span class="fa fa-bolt icon-space"><%= user.fsi %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </script>
+    <script type="text/template" charset="utf-8" id="dnsTmpl">
+      <% if (_.size(dns) > 0) { %>
+      <div class="text-muted small">Following discussions</div>
+      <% } %>
+      <% _.each(dns, function(notification) { %>
+          <a class="media-heading list-group-item" href="/topic/<%= notification.discussion_id %>">
+          You have <%= notification.count %> new <%= notification.count > 1 ? 'opinion' : 'opinions' %> on discussion
+          </a>
+      <% }); %>
+    </script>
+    <script type="text/template" charset="utf-8" id="notifyTmpl">
+      <%
+        var st = notification.source_type.toLowerCase(),
+          source = notification.source,
+          actor = notification.actor,
+          url = '',
+          message = '',
+          nt = notification;
+        if ("opinion" === st) {
+          url = "/" + ['topic', notification.parent_id, 'opinion', source.id].join("/");
+          message = "<b class='capitalize'>" + actor.name + "</b> posted an opinion on discussion";
+        } else if ("opinionlike" === st) {
+          url = "/" + ['topic', source.discussion_id, 'opinion', source.opinion_id].join("/");
+          message = "<b class='capitalize'>" + actor.name + "</b> marked opinion as insightful on discussion";
+        } else if ("follower" === st) {
+          url = '/profile/' + notification.actor.id;
+          message = "<b class='capitalize'>" + actor.name + "</b> followed you";
+        } else if ("messageconnection" === st) {
+          url = "/message";
+          message = "<b class='capitalize'>" + actor.name + "</b> wants to add you in message network";
+        } else if ("reply" === st) {
+          url = "/" + ['topic', notification.parent.discussion_id, 'opinion', notification.source.opinion_id].join("/");
+          message = "<b class='capitalize'>" + actor.name + "</b> has replied to your opinion";
+        } else if ("discussionreply" === st) {
+          url = "/" + ['topic', notification.parent_id].join("/");
+          message = "<b class='capitalize'>" + actor.name + "</b> has replied to your discussion";
+        } else if ("user" === st) {
+          if (!nt.parent_type || !nt.parent) return;
+          var pt = nt.parent_type.toLowerCase(),
+              p = nt.parent;
+          if (pt === 'opinion') {
+            url = "/" + ['topic', p.discussion_id, 'opinion', p.id].join("/");
+            message = "<b class='capitalize'>" + actor.name + "</b> mentioned you on discussion";
+          } else if (pt === 'reply') {
+            url = "/" + ['topic', p.discussion_id, 'opinion', p.opinion_id].join("/");
+            message = "<b class='capitalize'>" + actor.name + "</b> mentioned you on opinion's reply";
+          } else if (pt === 'discussionreply') {
+            url = "/" + ['topic', p.discussion_id].join("/");
+            message = "<b class='capitalize'>" + actor.name + "</b> mentioned you on discussion's reply";
+          }
+        }
+      %>
+      <a class="media-heading list-group-item" href="<%= url %>">
+        <%= message %>
+      </a>
+    </script>
+    <script type="text/template" id="notificationTmpl">
+      <% if (_.size(notifications) > 0) { %>
+      <div class="text-muted small">Personal notifications</div>
+      <% } %>
+      <% _.each(notifications, function(notification){
+        var st = notification.source_type.toLowerCase(),
+          source = notification.source,
+          actor = notification.actor,
+          url = '',
+          message = '',
+          nt = notification;
+        if ("opinion" === st) {
+          url = "/" + ['topic', notification.parent_id, 'opinion', source.id].join("/");
+          message = "<b class='capitalize'>" + actor.name + "</b> posted an opinion on discussion";
+        } else if ("opinionlike" === st) {
+          url = "/" + ['topic', source.discussion_id, 'opinion', source.opinion_id].join("/");
+          message = "<b class='capitalize'>" + actor.name + "</b> marked opinion as insightful on discussion";
+        } else if ("follower" === st) {
+          url = '/profile/' + notification.actor.id;
+          message = "<b class='capitalize'>" + actor.name + "</b> followed you";
+        } else if ("messageconnection" === st) {
+          url = "/message";
+          message = "<b class='capitalize'>" + actor.name + "</b> wants to add you in message network";
+        } else if ("reply" === st) {
+          url = "/" + ['topic', notification.parent.discussion_id, 'opinion', notification.source.opinion_id].join("/");
+          message = "<b class='capitalize'>" + actor.name + "</b> has replied to your opinion";
+        } else if ("discussionreply" === st) {
+          url = "/" + ['topic', notification.parent_id].join("/");
+          message = "<b class='capitalize'>" + actor.name + "</b> has replied to your discussion";
+        } else if ("user" === st) {
+          if (!nt.parent_type || !nt.parent) return;
+          var pt = nt.parent_type.toLowerCase(),
+              p = nt.parent;
+          if (pt === 'opinion') {
+            url = "/" + ['topic', p.discussion_id, 'opinion', p.id].join("/");
+            message = "<b class='capitalize'>" + actor.name + "</b> mentioned you on opinion";
+          } else if (pt === 'reply') {
+            url = "/" + ['topic', p.discussion_id, 'opinion', p.opinion_id].join("/");
+            message = "<b class='capitalize'>" + actor.name + "</b> mentioned you on opinion's reply";
+          } else if (pt === 'discussionreply') {
+            url = "/" + ['topic', p.discussion_id].join("/");
+            message = "<b class='capitalize'>" + actor.name + "</b> mentioned you on discussion's reply";
+          }
+        }
+      %>
+      <a class="media-heading list-group-item" href="<%= url %>">
+        <%= message %>
+      </a>
+    <% }); %>
+    </script>
+    <!-- Feature template handler start -->
+    <script type="text/template" id="featureTmpl">
+      <% if (_.size(features) > 0) { %>
+          <div class="text-muted small">New Features</div>
+        <% } %>
+        <% _.each(features, function(feature){
+          var url = '';
+
+            url = "/" + ['feature', feature.id].join("/");
+        %>
+        <dev class="media-heading list-group-item">
+          <a href="<%= url %>">
+            <%= feature.name %>
+          </a>
+          <p>
+            <%= feature.wrapped_body %>
+          </p>
+        </dev>
+        <br />
+      <% }); %>
+    </script>
+    <!-- Feature template handler end -->
+
+    <script type="text/template" id="confirmTmpl">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><%= title %></h4>
+          </div>
+          <div class="modal-body">
+            <%= body %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default cancel-button" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary ok-button">OK</a>
+          </div>
+        </div>
+      </div>
+    </script>
+  
+
+    <script type="text/javascript" src="./Median of Medians_files/gec0gyj.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
+  <script src="./Median of Medians_files/jquery-a1217d94ec915ad724a18c0d3619a900.js"></script>
+  <script src="./Median of Medians_files/underscore-0f65df9c52d7c7c0770bbe4f1f73ca7f.js"></script>
+  <script src="./Median of Medians_files/bootstrap-js-1897d8349e99634eff6f4460928a26b9.js"></script>
+  <script src="./Median of Medians_files/flatui-js-b3e09352261ff57e88a9399756797617.js"></script>
+  <script src="./Median of Medians_files/jquery-utils-fc91d895b607017ef09d6c2c0ab83d12.js"></script>
+  <script src="./Median of Medians_files/intro.min.js"></script>
+  <script src="./Median of Medians_files/search-js-1125f93226da3905df6537af50ac1fcd.js"></script>
+
+    <script type="text/x-mathjax-config;executed=true">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']],
+                        displayMath: [['\\[','\\]'], ['$$','$$']]}});
+  </script>
+  <script type="text/javascript" src="./Median of Medians_files/MathJax.js">
+  </script>
+    <script type="text/javascript" charset="utf-8">
+    $.timeago.settings.allowFuture = true;
+    $.timeago.settings.strings.suffixFromNow = "";
+  </script>
+  <script src="./Median of Medians_files/app-js-b4402b857796d2b1cb5cfc13ca664694.js"></script>
+
+    <script src="./Median of Medians_files/jquery.overlay.js"></script>
+  <script src="./Median of Medians_files/jquery.textcomplete.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    (function(){
+        App.realtime = {
+            articlelikeChannel: 'fs:channel:article:19:like'
+        }
+    })();
+  </script>
+  
+  <script src="./Median of Medians_files/follow.js"></script>
+  <script src="./Median of Medians_files/article.js"></script>
+  <script src="./Median of Medians_files/mention-js-d77f9743dd8334d308259281c433a549.js"></script>
+  <script src="./Median of Medians_files/equation-js-2b91c8b330d4488b07a4a2018726ff82.js"></script>
+        <script src="./Median of Medians_files/share.min.js"></script>
+
+    <!-- GA -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-39249587-1', 'functionspace.org');
+    ga('send', 'pageview');
+  </script>
+  <!-- End GA Code -->
+  <!-- GO Squared -->
+  <script type="text/javascript">
+    var GoSquared = {};
+    GoSquared.acct = "GSN-901890-I";
+    (function(w){
+      function gs(){
+        w._gstc_lt = +new Date;
+        var d = document, g = d.createElement("script");
+        g.type = "text/javascript";
+        g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+        var s = d.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(g, s);
+      }
+      w.addEventListener ?
+        w.addEventListener("load", gs, false) :
+        w.attachEvent("onload", gs);
+    })(window);
+  </script>
+  <!-- End GO Squarted Code -->
+  
+  <!-- <script type="text/javascript" src="https://functionspace.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e/en_US33tkvm-1988229788/6211/8/1.4.5/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=96465414"></script> -->
+
+
+</body></html>
